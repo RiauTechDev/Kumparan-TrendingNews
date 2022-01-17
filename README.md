@@ -1,0 +1,1 @@
+# coincodex.com-CryptoDetails
