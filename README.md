@@ -1,1 +1,1 @@
-# coincodex.com-CryptoDetails
+# Kumparan-TrendingNews
