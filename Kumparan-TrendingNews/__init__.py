@@ -12,6 +12,7 @@ def data_extraction():
         return print('Fail Requests')
 
     if content.status_code == 200:
+
         #Get and assign TrendingNews Title, AuthorName, TimePublished
         soup = BeautifulSoup(content.text, 'html.parser')
         result = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 cFmAia'})
