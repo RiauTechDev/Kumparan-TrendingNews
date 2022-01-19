@@ -14,13 +14,6 @@ def data_extraction():
     if content.status_code == 200:
         #Get and assign TrendingNews Title, AuthorName, TimePublished
         soup = BeautifulSoup(content.text, 'html.parser')
-        main = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 dCdfue'})
-
-        Title = soup.find('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 eSSwLt CardContentweb__CustomText-sc-1gsg7ct-0 grhZrk'})
-        AuthorName = soup.find('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 gACKQ CardContentweb__NameText-sc-1gsg7ct-1 CardContentweb___StyledNameText-sc-1gsg7ct-2 bxUak erbwXr'})
-        TimePublished = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 eycOKo'})
-        TimePublished = TimePublished.findChildren('span', {'class' : 'Textweb__StyledText-sc-1uxddwr-0 bQqliI'})
-
         result = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 cFmAia'})
         result = result.findChildren('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 eSSwLt CardContentweb__CustomText-sc-1gsg7ct-0 grhZrk'})
 
@@ -37,25 +30,25 @@ def data_extraction():
         news10 = None
 
         for res in result:
-            if i == 1:
+            if i == 0:
                 news1 = res.text
-            elif i == 2:
+            elif i == 1:
                 news2 = res.text
-            elif i == 3:
+            elif i == 2:
                 news3 = res.text
-            elif i == 4:
+            elif i == 3:
                 news4 = res.text
-            elif i == 5:
+            elif i == 4:
                 news5 = res.text
-            elif i == 6:
+            elif i == 5:
                 news6 = res.text
-            elif i == 7:
+            elif i == 6:
                 news7 = res.text
-            elif i == 8:
+            elif i == 7:
                 news8 = res.text
-            elif i == 9:
+            elif i == 8:
                 news9 = res.text
-            elif i == 10:
+            elif i == 9:
                 news10 = res.text
             i = i + 1
 
@@ -102,6 +95,19 @@ if __name__ == '__main__':
 
 
 
+
+
+
+
+
+    # main = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 dCdfue'})
+    #
+    # Title = soup.find('span', {
+    #     'class': 'Textweb__StyledText-sc-1uxddwr-0 eSSwLt CardContentweb__CustomText-sc-1gsg7ct-0 grhZrk'})
+    # AuthorName = soup.find('span', {
+    #     'class': 'Textweb__StyledText-sc-1uxddwr-0 gACKQ CardContentweb__NameText-sc-1gsg7ct-1 CardContentweb___StyledNameText-sc-1gsg7ct-2 bxUak erbwXr'})
+    # TimePublished = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 eycOKo'})
+    # TimePublished = TimePublished.findChildren('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 bQqliI'})
 
 
 
