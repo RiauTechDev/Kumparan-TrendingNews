@@ -12,84 +12,120 @@ def data_extraction():
         return print('Fail Requests')
 
     if content.status_code == 200:
-        # Get and assign news headlines, published time, author name
+        #Get and assign TrendingNews Title, AuthorName, TimePublished
         soup = BeautifulSoup(content.text, 'html.parser')
+        main = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 dCdfue'})
+
         Title = soup.find('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 eSSwLt CardContentweb__CustomText-sc-1gsg7ct-0 grhZrk'})
         AuthorName = soup.find('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 gACKQ CardContentweb__NameText-sc-1gsg7ct-1 CardContentweb___StyledNameText-sc-1gsg7ct-2 bxUak erbwXr'})
         TimePublished = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 eycOKo'})
         TimePublished = TimePublished.findChildren('span', {'class' : 'Textweb__StyledText-sc-1uxddwr-0 bQqliI'})
 
-        TitleRes = None
-        AuthorNameRes = None
-        TimePublishedRes = None
+        result = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 cFmAia'})
+        result = result.findChildren('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 eSSwLt CardContentweb__CustomText-sc-1gsg7ct-0 grhZrk'})
 
-        TitleRes = Title.text
-        AuthorNameRes = AuthorName.text
-        TimePublishedRes = TimePublished[2].text
-        TimePublishedRes = TimePublishedRes.strip()
+        i = 0
+        news1 = None
+        news2 = None
+        news3 = None
+        news4 = None
+        news5 = None
+        news6 = None
+        news7 = None
+        news8 = None
+        news9 = None
+        news10 = None
 
-        print(TitleRes)
-        print(AuthorNameRes)
-        print(TimePublishedRes)
+        for res in result:
+            if i == 1:
+                news1 = res.text
+            elif i == 2:
+                news2 = res.text
+            elif i == 3:
+                news3 = res.text
+            elif i == 4:
+                news4 = res.text
+            elif i == 5:
+                news5 = res.text
+            elif i == 6:
+                news6 = res.text
+            elif i == 7:
+                news7 = res.text
+            elif i == 8:
+                news8 = res.text
+            elif i == 9:
+                news9 = res.text
+            elif i == 10:
+                news10 = res.text
+            i = i + 1
 
-#         date = result[0]
-#         time = result[1]
-data_extraction()
-#         # Get and assign magnitude, depth, ls, bt, location, and perceived data
-#         result = soup.find('div', {'class', 'col-md-6 col-xs-6 gempabumi-detail no-padding'})
-#         result = result.findChildren('li')
-#
-#         i = 0
-#         magnitude = None
-#         depth = None
-#         ls = None
-#         bt = None
-#         location = None
-#         perceived = None
-#
-#         for res in result:
-#             if i == 1:
-#                 magnitude = res.text
-#             elif i == 2:
-#                 depth = res.text
-#             elif i == 3:
-#                 coordinate = res.text.split(' - ')
-#                 ls = coordinate[0]
-#                 bt = coordinate[1]
-#             elif i == 4:
-#                 location = res.text
-#             elif i == 5:
-#                 perceived = res.text
-#             i = i + 1
-#
-#         output = dict()
-#         output['date'] = date
-#         output['time'] = time
-#         output['magnitude'] = magnitude
-#         output['depth'] = depth
-#         output['coordinate'] = {'ls': ls, 'bt': bt}
-#         output['location'] = location
-#         output['perceived'] = perceived
-#
-#         return output
-#     else:
-#         return None
-#
-# # Show the data from extraction
-#
-# def show_data(result):
-#     if result is None:
-#         print('Latest earthquake data is not found')
-#         return
-#     print('Latest earthquacke based on BMKG')
-#     print(f"Date: {result['date']}")
-#     print(f"Time: {result['time']}")
-#     print(f"Magnitude: {result['magnitude']}")
-#     print(f"Depth: {result['depth']}")
-#     print(f"Coordinate: LS={result['coordinate']['ls']}, BT={result['coordinate']['bt']}")
-#     print(f"Location: {result['location']}")
-#     print(f"Perceived: {result['perceived']}")
-#
-# if __name__ == '__main__':
-#     result = data_extraction()
-#     show_data(result)
+        output = dict()
+        output['news1'] = news1
+        output['news2'] = news2
+        output['news3'] = news3
+        output['news4'] = news4
+        output['news5'] = news5
+        output['news6'] = news6
+        output['news7'] = news7
+        output['news8'] = news8
+        output['news9'] = news9
+        output['news10'] = news10
+
+        return output
+    else:
+        return None
+
+
+# Show data from extraction
+
+def show_data(result):
+    if result is None:
+        print('Trending news is not found')
+        return
+    print('Trending News in Kumparan')
+    print(f"Trending News 1 : {result['news1']}")
+    print(f"Trending News 2 : {result['news2']}")
+    print(f"Trending News 3 : {result['news3']}")
+    print(f"Trending News 4 : {result['news4']}")
+    print(f"Trending News 5 : {result['news5']}")
+    print(f"Trending News 6 : {result['news6']}")
+    print(f"Trending News 7 : {result['news7']}")
+    print(f"Trending News 8 : {result['news8']}")
+    print(f"Trending News 9 : {result['news9']}")
+    print(f"Trending News 10 : {result['news10']}")
+
+if __name__ == '__main__':
+    result = data_extraction()
+    show_data(result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # TitleRes = None
+        # AuthorNameRes = None
+        # TimePublishedRes = None
+        #
+        # TitleRes = Title.text
+        # AuthorNameRes = AuthorName.text
+        # TimePublishedRes = TimePublished[2].text
+        # TimePublishedRes = TimePublishedRes.strip()
+        # print(TitleRes + ', Author Name: ' + AuthorNameRes + ', Time Published: ' + TimePublishedRes)
+        # print(result)
+
+        # # Get and assign magnitude, depth, ls, bt, location, and perceived data
+        # soup = BeautifulSoup(content.text, 'html.parser')
+        # result = soup.find('div', {'class', 'Viewweb__StyledView-sc-1ajfkkc-0 dCdfue'})
+        # result = result.findChildren('span', {'class' : 'Textweb__StyledText-sc-1uxddwr-0 bQqliI'})
+        # print(result)
