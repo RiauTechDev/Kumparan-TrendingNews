@@ -1,4 +1,5 @@
 import requests
+import strip as strip
 from bs4 import BeautifulSoup
 
 
@@ -13,10 +14,23 @@ def data_extraction():
     if content.status_code == 200:
         # Get and assign news headlines, published time, author name
         soup = BeautifulSoup(content.text, 'html.parser')
-        result = soup.find('div', {'class': 'sc-5mlv5q-0 hZqCOq'})
-        Headlines = None
-        Headlines = result.text
-        print(Headlines)
+        Title = soup.find('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 eSSwLt CardContentweb__CustomText-sc-1gsg7ct-0 grhZrk'})
+        AuthorName = soup.find('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 gACKQ CardContentweb__NameText-sc-1gsg7ct-1 CardContentweb___StyledNameText-sc-1gsg7ct-2 bxUak erbwXr'})
+        TimePublished = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 eycOKo'})
+        TimePublished = TimePublished.findChildren('span', {'class' : 'Textweb__StyledText-sc-1uxddwr-0 bQqliI'})
+
+        TitleRes = None
+        AuthorNameRes = None
+        TimePublishedRes = None
+
+        TitleRes = Title.text
+        AuthorNameRes = AuthorName.text
+        TimePublishedRes = TimePublished[2].text
+        TimePublishedRes = TimePublishedRes.strip()
+
+        print(TitleRes)
+        print(AuthorNameRes)
+        print(TimePublishedRes)
 
 #         date = result[0]
 #         time = result[1]
