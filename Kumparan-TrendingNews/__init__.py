@@ -24,20 +24,31 @@ def data_extraction():
         time = time[2::3]
 
         i = 0
-        newsnumber = dict()
-        titlename = dict()
-        authorname = dict()
-        timepublished = dict()
-
+        tnews = dict()
         for ti, thor, tim in zip(title, author, time):
             num = i + 1
-            newsnumber[f'news{num}'] = num
-            titlename[f'title{num}'] = ti.text
-            authorname[f'author{num}'] = thor.text
-            timepublished[f'time{num}'] = tim.text
-            print(f"Trending News {newsnumber[f'news{num}']}: {titlename[f'title{num}']}, Author Name: {authorname[f'author{num}']}, Time Published: {timepublished[f'time{num}']}")
+            tnews[f'News {num}'] = {}
+            tnews[f'News {num}'][f'Title'] = {}
+            tnews[f'News {num}'][f'Author'] = {}
+            tnews[f'News {num}'][f'TimePublished'] = {}
+            tnews[f'News {num}'][f'Title'] = ti.text
+            tnews[f'News {num}'][f'Author'] = thor.text
+            tnews[f'News {num}'][f'TimePublished'] = tim.text
             i = i + 1
+        return tnews
 
 
+def show_data(result):
+    if result is None:
+        print('Trending News data is not found')
+        return
+    for news, data in result.items():
+        print(f"\nTrending", news)
+        for key in data:
+            print(key + ':', data[key])
+
+# data_extraction()
 if __name__ == '__main__':
-    data_extraction()
+    result = data_extraction()
+    show_data(result)
+    result
