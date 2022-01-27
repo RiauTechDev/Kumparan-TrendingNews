@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 
 
 # Extract data from Website
-
 def data_extraction():
     try:
         content = requests.get('https://kumparan.com/trending',
@@ -37,7 +36,7 @@ def data_extraction():
             i = i + 1
         return tnews
 
-
+# Show the trending news data
 def show_data(result):
     if result is None:
         print('Trending News data is not found')
@@ -47,6 +46,7 @@ def show_data(result):
         for key in data:
             print(key + ':', data[key])
 
+# Execute the function if run from main
 if __name__ == '__main__':
     result = data_extraction()
     show_data(result)
