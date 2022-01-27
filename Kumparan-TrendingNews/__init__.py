@@ -47,7 +47,6 @@ def show_data(result):
         for key in data:
             print(key + ':', data[key])
 
-# data_extraction()
 if __name__ == '__main__':
     result = data_extraction()
     show_data(result)
