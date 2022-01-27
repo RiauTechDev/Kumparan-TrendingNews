@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-
 # Extract data from Website
 def data_extraction():
     try:
