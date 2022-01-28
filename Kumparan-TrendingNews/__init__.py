@@ -35,6 +35,9 @@ def data_extraction():
             i = i + 1
         return tnews
 
+    else:
+        return None
+
 # Show the trending news data
 def show_data(result):
     if result is None:
