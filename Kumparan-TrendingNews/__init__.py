@@ -52,4 +52,3 @@ def show_data(result):
 if __name__ == '__main__':
     result = data_extraction()
     show_data(result)
-    result
