@@ -113,6 +113,3 @@ if __name__ == '__main__':
     foodandtravel_trending_news = TrendingFoodTravel('https://kumparan.com/trending/food-travel')
     foodandtravel_trending_news.show_description()
     foodandtravel_trending_news.run()
-
-
-
