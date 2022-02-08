@@ -1,54 +1,118 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Extract data from Website
-def data_extraction():
-    try:
-        content = requests.get('https://kumparan.com/trending',
-                               headers={'Cache-Control': 'private, max-age=0, no-cache'})
-    except Exception:
-        return print('Fail Requests')
+"""
+Method = function
+Field / Attribute = variable 
+Constructor = method that called first time since object created. Use this to declare all field in this class. 
 
-    if content.status_code == 200:
-        # Get and assign TrendingNews Title, AuthorName, TimePublished
-        soup = BeautifulSoup(content.text, 'html.parser')
-        main = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 cFmAia'})
-        title = main.findChildren('span', {
-            'class': 'Textweb__StyledText-sc-1uxddwr-0 eSSwLt CardContentweb__CustomText-sc-1gsg7ct-0 grhZrk'})
-        author = main.findChildren('span', {
-            'class': 'Textweb__StyledText-sc-1uxddwr-0 gACKQ CardContentweb__NameText-sc-1gsg7ct-1 '
-                     'CardContentweb___StyledNameText-sc-1gsg7ct-2 bxUak erbwXr'})
-        time = main.findChildren('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 bQqliI'})
-        time = time[2::3]
+Example of Constructor:
 
-        i = 0
-        tnews = dict()
-        for ti, thor, tim in zip(title, author, time):
-            num = i + 1
-            tnews[f'News {num}'] = {}
-            tnews[f'News {num}'][f'Title'] = {}
-            tnews[f'News {num}'][f'Author'] = {}
-            tnews[f'News {num}'][f'TimePublished'] = {}
-            tnews[f'News {num}'][f'Title'] = ti.text
-            tnews[f'News {num}'][f'Author'] = thor.text
-            tnews[f'News {num}'][f'TimePublished'] = tim.text
-            i = i + 1
-        return tnews
+def __init__(self, url, description):
+        self.description = description
+        self.result = None
+        self.url = url
+"""
 
-    else:
-        return None
+class Trending:
+    def __init__(self, url, description):
+        self.description = description
+        self.result = None
+        self.url = url
 
-# Show the trending news data
-def show_data(result):
-    if result is None:
-        print('Trending News data is not found')
-        return
-    for news, data in result.items():
-        print(f"\nTrending", news)
-        for key in data:
-            print(key + ':', data[key])
+    def show_description(self):
+        print(self.description)
+
+    def data_extraction(self):  # Extract data from Website
+        try:
+            content = requests.get(self.url,
+                                   headers={'Cache-Control': 'private, max-age=0, no-cache'})
+        except Exception:
+            return print('Fail Requests')
+
+        if content.status_code == 200:
+            # Get and assign TrendingNews Title, AuthorName, TimePublished
+            soup = BeautifulSoup(content.text, 'html.parser')
+            main = soup.find('div', {'class': 'Viewweb__StyledView-sc-1ajfkkc-0 cFmAia'})
+            title = main.findChildren('span', {
+                'class': 'Textweb__StyledText-sc-1uxddwr-0 eSSwLt CardContentweb__CustomText-sc-1gsg7ct-0 grhZrk'})
+            author = main.findChildren('span', {
+                'class': 'Textweb__StyledText-sc-1uxddwr-0 gACKQ CardContentweb__NameText-sc-1gsg7ct-1 '
+                         'CardContentweb___StyledNameText-sc-1gsg7ct-2 bxUak erbwXr'})
+            time = main.findChildren('span', {'class': 'Textweb__StyledText-sc-1uxddwr-0 bQqliI'})
+            time = time[2::3]
+
+            i = 0
+            tnews = dict()
+            for ti, thor, tim in zip(title, author, time):
+                num = i + 1
+                tnews[f'News {num}'] = {}
+                tnews[f'News {num}'][f'Title'] = {}
+                tnews[f'News {num}'][f'Author'] = {}
+                tnews[f'News {num}'][f'TimePublished'] = {}
+                tnews[f'News {num}'][f'Title'] = ti.text
+                tnews[f'News {num}'][f'Author'] = thor.text
+                tnews[f'News {num}'][f'TimePublished'] = tim.text
+                i = i + 1
+            self.result = tnews
+        else:
+            return None
+
+    # Show the trending news data
+    def show_data(self):
+        if self.result is None:
+            print('Trending News data is not found')
+            return
+        for news, data in self.result.items():
+            print(f"\nTrending", news)
+            for key in data:
+                print(key + ':', data[key])
+
+    def run(self):
+        self.data_extraction()
+        self.show_data()
+
+class TrendingAll(Trending):
+    def __init__(self, url):
+        super(TrendingAll, self).__init__(url, '\n\nTRENDING DATA IN ALL SECTION')
+
+class TrendingNews(Trending):
+    def __init__(self, url):
+        super(TrendingNews, self).__init__(url, '\n\nTRENDING DATA IN NEWS SECTION')
+
+class TrendingEntertainment(Trending):
+    def __init__(self, url):
+        super(TrendingEntertainment, self).__init__(url, '\n\nTRENDING DATA IN ENTERTAINMENT SECTION')
+
+class TrendingMom(Trending):
+    def __init__(self, url):
+        super(TrendingMom, self).__init__(url, '\n\nTRENDING DATA IN MOM SECTION')
+
+class TrendingFoodTravel(Trending):
+    def __init__(self, url):
+        super(TrendingFoodTravel, self).__init__(url, '\n\nTRENDING DATA IN FOOD AND TRAVEL SECTION')
 
 # Execute the function if run from main
 if __name__ == '__main__':
-    result = data_extraction()
-    show_data(result)
+    all_trending_news = TrendingAll('https://kumparan.com/trending')
+    all_trending_news.show_description()
+    all_trending_news.run()
+
+    news_trending_news = TrendingNews('https://kumparan.com/trending/news')
+    news_trending_news.show_description()
+    news_trending_news.run()
+
+    entertainment_trending_news = TrendingEntertainment('https://kumparan.com/trending/entertainment')
+    entertainment_trending_news.show_description()
+    entertainment_trending_news.run()
+
+    mom_trending_news = TrendingMom('https://kumparan.com/trending/mom')
+    mom_trending_news.show_description()
+    mom_trending_news.run()
+
+    foodandtravel_trending_news = TrendingFoodTravel('https://kumparan.com/trending/food-travel')
+    foodandtravel_trending_news.show_description()
+    foodandtravel_trending_news.run()
+
+
+
